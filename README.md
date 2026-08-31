@@ -18,8 +18,8 @@ convivono, e nella pratica servono in momenti diversi della stessa giornata.
 ## Installazione
 
 ```bash
-git clone https://github.com/alexandercarrelli-byte/mac-keepawake-f6.git
-cd mac-keepawake-f6
+git clone https://github.com/alexandercarrelli-byte/mac-keepawake.git
+cd mac-keepawake
 ./install.sh
 ```
 
