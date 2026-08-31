@@ -1,0 +1,24 @@
+#!/bin/bash
+# keepawake-toggle — toggle "coperchio chiuso + batteria" con notifica ON/OFF.
+# Legato al tasto F6 via Karabiner. Usa sudo SENZA password solo per i due
+# comandi pmset autorizzati in /etc/sudoers.d/keepawake.
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+
+state=$(pmset -g | awk '/SleepDisabled/{print $2}')
+
+notify() { # $1 = titolo, $2 = testo, $3 = suono
+  osascript -e "display notification \"$2\" with title \"$1\" sound name \"$3\""
+}
+
+if [ "${state:-0}" = "1" ]; then
+  # attualmente ON -> spengo
+  sudo -n pmset -a disablesleep 0
+  pkill -f "caffeinate -dimsu" 2>/dev/null || true
+  notify "☕️ KeepAwake OFF" "Sonno normale ripristinato. Non chiudere il coperchio durante i job." "Bottle"
+else
+  # attualmente OFF -> accendo
+  sudo -n pmset -a disablesleep 1
+  pkill -f "caffeinate -dimsu" 2>/dev/null || true
+  nohup caffeinate -dimsu >/dev/null 2>&1 &
+  notify "⚡️ KeepAwake ON" "Puoi chiudere il coperchio: i job continuano su batteria." "Hero"
+fi

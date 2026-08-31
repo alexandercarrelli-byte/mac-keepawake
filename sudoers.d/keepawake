@@ -1,0 +1,16 @@
+# /etc/sudoers.d/keepawake
+#
+# Installare SOLO con visudo, che valida la sintassi prima di salvare:
+#     sudo visudo -f /etc/sudoers.d/keepawake
+#     sudo chmod 440 /etc/sudoers.d/keepawake
+#
+# Sostituisci TUO_UTENTE con il tuo nome utente (`whoami`).
+#
+# I due comandi sono scritti per intero, argomenti compresi: cosi' l'autorizzazione
+# vale per quelle due invocazioni e per nient'altro. NON allargarla a
+# `NOPASSWD: /usr/bin/pmset` — pmset sa anche spegnere, riavviare e programmare
+# accensioni, e la renderesti una scorciatoia per farlo senza password.
+#
+# Per rimuovere tutto:  sudo rm /etc/sudoers.d/keepawake
+
+TUO_UTENTE ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 1, /usr/bin/pmset -a disablesleep 0

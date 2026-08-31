@@ -1,0 +1,15 @@
+{
+  "description": "F6 -> toggle KeepAwake (coperchio chiuso + batteria) con notifica ON/OFF",
+  "manipulators": [
+    {
+      "type": "basic",
+      "from": {
+        "key_code": "f6",
+        "modifiers": { "optional": ["any"] }
+      },
+      "to": [
+        { "shell_command": "/Users/TUO_UTENTE/.local/bin/keepawake-toggle" }
+      ]
+    }
+  ]
+}
