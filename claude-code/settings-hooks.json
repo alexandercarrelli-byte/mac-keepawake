@@ -1,0 +1,38 @@
+{
+  "_commento": [
+    "Frammento da unire a ~/.claude/settings.json (NON e' un file di settings completo).",
+    "install.sh lo unisce da solo, in modo idempotente e con backup.",
+    "acquire su SessionStart e UserPromptSubmit: la sessione e' viva, il Mac non deve dormire.",
+    "release su Stop e SessionEnd: finito il turno, il caffeinate muore e il Mac torna normale."
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/keep-awake.sh acquire", "timeout": 10 }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/keep-awake.sh acquire", "timeout": 10 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/keep-awake.sh release", "timeout": 10 }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/.claude/keep-awake.sh release", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}
